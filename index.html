@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuvola | Contemporary Neapolitan Pizza in Lisbon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS VARIABLES & DESIGN SYSTEM */
+        :root {
+            --forest-green: #1B3A2D;
+            --soft-cream: #F5F0E6;
+            --warm-gold: #C9A84C;
+            --dusty-rose: #D4846A;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--forest-green);
+            background-color: var(--soft-cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* TEXTURE OVERLAY */
+        .texture-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background-color: var(--warm-gold);
+            color: var(--forest-green);
+        }
+        .btn-primary:hover { background-color: #b5953e; }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--soft-cream);
+            border: 1px solid var(--soft-cream);
+        }
+        .btn-secondary:hover { background-color: rgba(245, 240, 230, 0.1); }
+        
+        .btn-outline-gold {
+            background-color: transparent;
+            color: var(--warm-gold);
+            border: 1px solid var(--warm-gold);
+        }
+        .btn-outline-gold:hover { background-color: rgba(201, 168, 76, 0.1); }
+
+        .btn-dark {
+            background-color: var(--forest-green);
+            color: var(--soft-cream);
+            width: 100%;
+        }
+        .btn-dark:hover { background-color: #12281f; }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        nav.scrolled {
+            background-color: rgba(27, 58, 45, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(245, 240, 230, 0.1);
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--warm-gold);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--soft-cream);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover { color: var(--warm-gold); }
+        .hamburger { display: none; color: var(--warm-gold); font-size: 1.5rem; cursor: pointer; }
+
+        /* LANGUAGE SWITCHER STYLES */
+        .lang-switch {
+            display: flex;
+            gap: 10px;
+            color: var(--soft-cream);
+            font-size: 0.8rem;
+            margin-left: 15px;
+        }
+        .lang-btn {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+        .lang-btn.active {
+            opacity: 1;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        /* HERO SECTION */
+        #hero {
+            height: 100dvh;
+            background-color: var(--forest-green);
+            background: radial-gradient(circle at center, rgba(201, 168, 76, 0.15) 0%, var(--forest-green) 70%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .hero-content { max-width: 800px; z-index: 2; }
+        
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            color: var(--soft-cream);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-sub {
+            font-size: 1.125rem;
+            color: rgba(245, 240, 230, 0.8);
+            max-width: 480px;
+            margin: 0 auto 40px;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            border: 1px solid rgba(201, 168, 76, 0.5);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            color: var(--soft-cream);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .badge-link:hover .badge {
+            background: rgba(201, 168, 76, 0.15);
+            border-color: var(--warm-gold);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            color: var(--soft-cream);
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        /* DOUGH STORY SECTION */
+        #dough {
+            background-color: var(--soft-cream);
+            padding: 100px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+
+        .dough-text { width: 55%; }
+        .dough-visual { 
+            width: 45%;
+            display: flex; 
+            justify-content: center; 
+        }
+
+        .dough-img-full {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid var(--warm-gold);
+            object-fit: contain;
+            background: rgba(201, 168, 76, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .dough-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: var(--forest-green);
+        }
+
+        .dough-text ul {
+            margin-bottom: 40px;
+        }
+
+        .dough-text li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .dough-text li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--warm-gold);
+        }
+
+        .pull-quote {
+            border-left: 3px solid var(--warm-gold);
+            padding-left: 25px;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--forest-green);
+        }
+
+        /* REVIEWS TICKER */
+        #reviews {
+            background-color: var(--forest-green);
+            padding: 60px 0;
+            overflow: hidden;
+            color: var(--soft-cream);
+            text-align: center;
+        }
+
+        #reviews h3 { font-size: 2rem; margin-bottom: 40px; }
+
+        .ticker-wrapper {
+            display: flex;
+            width: 200%;
+            animation: ticker 30s linear infinite;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 50px;
+            padding: 0 25px;
+            white-space: nowrap;
+        }
+
+        .review-item {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .review-source {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--warm-gold);
+            font-style: normal;
+            margin-left: 10px;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* MENU SECTION */
+        #menu {
+            background-color: var(--soft-cream);
+            padding: 100px 5%;
+        }
+
+        .menu-header { text-align: center; margin-bottom: 60px; }
+        .menu-header h2 { font-size: 3.5rem; color: var(--forest-green); }
+        .menu-header p { color: #555; margin-top: 10px; }
+
+        .tab-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid var(--forest-green);
+            color: var(--forest-green);
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--forest-green);
+            color: var(--soft-cream);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Pizza Grid */
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .pizza-card {
+            background: #fff;
+            padding: 30px;
+            border-top: 3px solid var(--forest-green);
+            position: relative;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pizza-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-color: var(--warm-gold);
+        }
+
+        .pizza-card h4 { font-size: 1.5rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: baseline; }
+        .pizza-card p { font-size: 0.9rem; color: #666; margin-bottom: 15px; flex-grow: 1; }
+        .price { font-weight: 600; color: var(--warm-gold); font-size: 1.1rem; }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px; right: 15px;
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--warm-gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .starters-grid, .desserts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+
+        .menu-ctas {
+            display: flex;
+            justify-content: center; gap: 20px; margin-top: 60px;
+        }
+
+        .dietary-info {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--warm-gold);
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        /* STORY SECTION STYLES */
+        #story {
+            background-color: var(--forest-green);
+            color: var(--soft-cream);
+            padding: 100px 5%;
+        }
+
+        .story-header { text-align: center; margin-bottom: 60px; }
+        .story-header h2 { font-size: 3.5rem; color: var(--warm-gold); }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            align-items: start;
+        }
+
+        .team-member {
+            background: rgba(245, 240, 230, 0.05);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: var(--transition);
+            text-align: center;
+            padding-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-member:hover {
+            border-color: var(--warm-gold);
+            transform: translateY(-5px);
+        }
+
+        .team-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-bottom: 1px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .team-info { padding: 20px 15px; }
+        .team-name { font-family: var(--font-serif); font-size: 1.4rem; color: var(--warm-gold); display: block; margin-bottom: 4px; }
+        .team-role { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; display: block; }
+        .team-origin { font-size: 0.8rem; font-style: italic; display: block; margin-top: 8px; color: var(--dusty-rose); }
+
+        .story-intro {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        /* UPDATED RESERVATIONS SECTION STYLES (No Software Mode) */
+        #reservations {
+            background-color: var(--soft-cream);
+            padding: 100px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .res-header { text-align: center; margin-bottom: 50px; }
+        .res-header h2 { font-size: 3.5rem; color: var(--forest-green); }
+
+        .res-container-centered {
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: #fff;
+            padding: 60px 40px;
+            border-radius: 4px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+            border-top: 4px solid var(--forest-green);
+        }
+
+        .res-main-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .res-box {
+            text-align: center;
+            padding: 25px;
+            border: 1px solid rgba(27, 58, 45, 0.1);
+            transition: var(--transition);
+        }
+
+        .res-box:hover {
+            border-color: var(--warm-gold);
+            background: rgba(201, 168, 76, 0.02);
+        }
+
+        .res-box h4 { 
+            font-size: 1.2rem; 
+            margin-bottom: 15px; 
+            color: var(--forest-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .phone-number {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--warm-gold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .res-info-side {
+            padding-left: 40px;
+            border-left: 1px solid #eee;
+        }
+
+        .info-card {
+            margin-bottom: 25px;
+        }
+        .info-card h4 { font-size: 1.3rem; margin-bottom: 12px; color: var(--forest-green); }
+        .info-card p { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 0.95rem; }
+        
+        .delivery-strip {
+            background: var(--forest-green);
+            color: var(--soft-cream);
+            padding: 15px;
+            text-align: center;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        .delivery-strip a { color: var(--warm-gold); text-decoration: underline; font-weight: 500; }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--forest-green);
+            color: var(--soft-cream);
+            padding: 80px 5% 30px;
+            position: relative;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo { font-size: 2rem; color: var(--warm-gold); margin-bottom: 15px; display: block; }
+        .footer-col h5 { font-size: 1.2rem; margin-bottom: 20px; color: var(--warm-gold); }
+        .footer-col ul li { margin-bottom: 10px; opacity: 0.8; }
+        
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(245, 240, 230, 0.1); padding-top: 30px; font-size: 0.85rem; opacity: 0.6;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .dough-text, .dough-visual { width: 100%; }
+            #dough { flex-direction: column; text-align: center; }
+            .dough-text li { text-align: left; }
+            
+            .pizza-grid, .starters-grid, .desserts-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            .res-container-centered { grid-template-columns: 1fr; padding: 40px 25px; }
+            .res-info-side { padding-left: 0; border-left: none; border-top: 1px solid #eee; padding-top: 30px; }
+            
+            .footer-grid { grid-template-columns: 1fr; text-align: center; }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links { display: none; }
+            .hamburger { display: block; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-ctas { flex-direction: column; }
+            .pizza-grid, .starters-grid, .desserts-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="texture-overlay"></div>
+
+    <nav id="navbar">
+        <a href="#" class="logo">NUVOLA</a>
+        <div class="nav-links">
+            <a href="#menu" data-i18n="nav_menu">Menu</a>
+            <a href="#story" data-i18n="nav_story">A Nossa História</a>
+            <a href="#reservations" data-i18n="nav_visit">Visite-nos</a>
+            <a href="#reservations" class="btn btn-primary" style="color: var(--forest-green); padding: 10px 20px;" data-i18n="nav_reserve">Reservar</a>
+            
+            <div class="lang-switch">
+                <span class="lang-btn active" onclick="switchLanguage('pt')">PT</span>
+                <span>|</span>
+                <span class="lang-btn" onclick="switchLanguage('en')">EN</span>
+            </div>
+        </div>
+        <div class="hamburger">☰</div>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title" data-i18n="hero_title">Pizza que cresce<br>como uma nuvem.</h1>
+            <p class="hero-sub" data-i18n="hero_sub">Massa fermentada por 48 horas. Vinhos portugueses biológicos. O segredo mais bem guardado de Campo de Ourique — 4.9 ⭐ no Google.</p>
+            
+            <div class="trust-badges">
+                <a href="https://www.google.com/maps/place/Nuvola/@38.7161911,-9.1679162,17.28z/data=!4m15!1m8!3m7!1s0xd1933d225bb4dd7:0xefd79e31f66dd713!2sNuvola!8m2!3d38.7161983!4d-9.1680881!10e9!16s%2Fg%2F11lz3bybqb!3m5!1s0xd1933d225bb4dd7:0xefd79e31f66dd713!8m2!3d38.7161983!4d-9.1680881!16s%2Fg%2F11lz3bybqb?entry=ttu&g_ep=EgoyMDI2MDQyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="badge-link">
+                    <span class="badge">⭐ 4.9 / 5 · Google Reviews</span>
+                </a>
+                <span class="badge">🏆 #1 Italian in Lisbon (TheFork)</span>
+                <span class="badge" data-i18n="badge_pizza">🍕 Napolitana Contemporânea</span>
+                <span class="badge" data-i18n="badge_wine">🍷 Vinhos Orgânicos</span>
+            </div>
+
+            <div class="hero-ctas">
+                <a href="#reservations" class="btn btn-primary" data-i18n="btn_reserve">Reservar Mesa</a>
+                <a href="#menu" class="btn btn-secondary" data-i18n="btn_menu">Ver o Menu</a>
+            </div>
+        </div>
+        <div class="scroll-down">↓</div>
+    </section>
+
+    <section id="dough">
+        <div class="dough-text">
+            <h2 data-i18n="dough_title">A origem do nosso nome</h2>
+            <ul>
+                <li data-i18n="dough_l1">Nuvola significa "nuvem" em Italiano</li>
+                <li data-i18n="dough_l2">O nome vem da marca de farinha italiana usada na massa</li>
+                <li data-i18n="dough_l3">Fermentação lenta de 48 horas — a massa descansa e torna-se mais leve</li>
+                <li data-i18n="dough_l4">Sementes ricas em Ómega-3 adicionadas à mistura</li>
+                <li data-i18n="dough_l5">Resultado: uma crosta crocante por fora e arejada por dentro</li>
+                <li data-i18n="dough_l6">O Chef Surendra lidera a cozinha</li>
+            </ul>
+            <blockquote class="pull-quote" data-i18n="dough_quote">
+                "Uma mistura de farinha e sementes numa longa fermentação de 48 horas — para uma crosta que é a melhor massa de pizza que já comi."
+            </blockquote>
+        </div>
+        <div class="dough-visual">
+            <img src="IMG_7217.jpg" alt="Origin of our name" class="dough-img-full">
+        </div>
+    </section>
+
+    <section id="reviews">
+        <h3 data-i18n="reviews_title">O que Lisboa diz de nós</h3>
+        <div class="ticker-wrapper">
+            <div class="ticker-track">
+                <span class="review-item">"Um verdadeiro tesouro escondido em Lisboa." <span class="review-source">TheFork</span></span>
+                <span class="review-item">"As melhores pizzas de Lisboa!" <span class="review-source">TheFork</span></span>
+                <span class="review-item" data-i18n="review_3">"Comer na Nuvola é como um abraço quente." <span class="review-source">Tripadvisor</span></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <div class="menu-header">
+            <h2 data-i18n="menu_title">O Nosso Menu</h2>
+            <p data-i18n="menu_sub">Raízes italianas. Alma criativa. Massa de 48h, sempre.</p>
+        </div>
+
+        <div class="tab-filter">
+            <button class="tab-btn" onclick="openTab('starters')" data-i18n="tab_starters">Entradas</button>
+            <button class="tab-btn active" onclick="openTab('pizzas')" data-i18n="tab_pizzas">Pizzas & Lasanha</button>
+            <button class="tab-btn" onclick="openTab('desserts')" data-i18n="tab_desserts">Sobremesas</button>
+        </div>
+
+        <div id="starters" class="tab-content">
+            <div class="starters-grid">
+                <div class="pizza-card">
+                    <h4>Focaccia <span class="price">5,50€</span></h4>
+                    <p data-i18n="item_focaccia">Com azeitonas e tomate seco, dip de tomate San Marzano.</p>
+                    <div class="dietary-info">VG</div>
+                </div>
+                <div class="pizza-card">
+                    <h4 data-i18n="item_garlic_title">Pão de Alho <span class="price">5,00€</span></h4>
+                    <p data-i18n="item_garlic_desc">Massa de pizza, manteiga de alho, mozzarella, orégãos, grana padano.</p>
+                    <div class="dietary-info">V</div>
+                </div>
+                <div class="pizza-card">
+                    <h4>Burrata <span class="price">9,00€</span></h4>
+                    <p data-i18n="item_burrata">Burrata, tomate-cereja assado, pesto, pinhões tostados. Servido com pão caseiro.</p>
+                    <div class="dietary-info">V</div>
+                </div>
+                <div class="pizza-card">
+                    <h4 data-i18n="item_charcuterie">Tábua de Enchidos <span class="price">11,00€</span></h4>
+                    <p data-i18n="item_charcuterie_desc">Seleção de enchidos italianos premium.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="pizzas" class="tab-content active">
+            <div class="pizza-grid">
+                <div class="pizza-card">
+                    <span class="card-badge" data-i18n="badge_essential">Essencial</span>
+                    <h4>Margherita <span class="price">12,00€</span></h4>
+                    <p data-i18n="item_margherita">Tomate San Marzano, Fior di Latte, azeite virgem extra, manjericão.</p>
+                    <div class="dietary-info">V</div>
+                </div>
+                <div class="pizza-card">
+                    <h4>Marinara <span class="price">10,00€</span></h4>
+                    <p data-i18n="item_marinara">Tomate San Marzano, alho confitado, azeite virgem extra, orégãos, manjericão.</p>
+                    <div class="dietary-info">VG</div>
+                </div>
+                <div class="pizza-card">
+                    <span class="card-badge" data-i18n="badge_spicy">Picante</span>
+                    <h4>Diavola 2.0 <span class="price">14,00€</span></h4>
+                    <p data-i18n="item_diavola">Tomate San Marzano, Fior di Latte, salame picante, cebola caramelizada, tomilho.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4>Nduja <span class="price">14,50€</span></h4>
+                    <p data-i18n="item_nduja">Tomate San Marzano, Fior di Latte, nduja, stracciatella, tomate seco.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4 data-i18n="item_anchovies">Anchovas <span class="price">15,00€</span></h4>
+                    <p data-i18n="item_anchovies_desc">Tomate San Marzano, Fior di Latte, anchovas, alcaparras, azeitonas, raspas de limão.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4>Capricciosa <span class="price">15,00€</span></h4>
+                    <p data-i18n="item_capricciosa">Tomate San Marzano, Fior di Latte, fiambre, cogumelos confitados, alcachofras, azeitonas.</p>
+                </div>
+                <div class="pizza-card">
+                    <span class="card-badge">Bestseller</span>
+                    <h4>Mortadella <span class="price">17,00€</span></h4>
+                    <p data-i18n="item_mortadella">Fior di Latte, mortadella, stracciatella, pesto de pistáchio, pistáchios torrados.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4>Burrata & Parma <span class="price">16,50€</span></h4>
+                    <p data-i18n="item_parma">Tomate San Marzano, Fior di Latte, presunto de Parma, burrata, rucula.</p>
+                </div>
+                <div class="pizza-card">
+                    <span class="card-badge">Premium</span>
+                    <h4 data-i18n="item_truffles">Trufas <span class="price">18,00€</span></h4>
+                    <p data-i18n="item_truffles_desc">Fior di Latte, trufa negra, cogumelos confitados, nata, raspas de limão.</p>
+                    <div class="dietary-info">V</div>
+                </div>
+                <div class="pizza-card">
+                    <h4>Tartiflette <span class="price">16,00€</span></h4>
+                    <p data-i18n="item_tartiflette">Fior di Latte, bacon, batata assada, cebola caramelizada, queijo reblochon.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4 data-i18n="item_pear">Pêra & Gorgonzola <span class="price">14,50€</span></h4>
+                    <p data-i18n="item_pear_desc">Fior di Latte, pêra rocha, queijo gorgonzola, mel, nozes caramelizadas.</p>
+                    <div class="dietary-info">V</div>
+                </div>
+                <div class="pizza-card">
+                    <h4 data-i18n="item_veggie">Vegetariana <span class="price">14,00€</span></h4>
+                    <p data-i18n="item_veggie_desc">Tomate San Marzano, Fior di Latte, beringela, curgete, pimentos assados.</p>
+                    <div class="dietary-info">V / VG DISP.</div>
+                </div>
+                <div class="pizza-card">
+                    <span class="card-badge" data-i18n="badge_main">Prato</span>
+                    <h4 data-i18n="item_lasagna">Lasanha de Carne <span class="price">15,00€</span></h4>
+                    <p data-i18n="item_lasagna_desc">Ragù de vaca, tomate San Marzano, molho bechamel, grana padano.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="desserts" class="tab-content">
+            <div class="desserts-grid">
+                <div class="pizza-card">
+                    <h4>Tiramisù <span class="price">5,50€</span></h4>
+                    <p data-i18n="item_tiramisu">O clássico favorito da casa, cremoso e equilibrado.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4>Mousse Chocolate <span class="price">5,00€</span></h4>
+                    <p data-i18n="item_mousse_desc">70% cacau com flor de sal e azeite virgem extra.</p>
+                </div>
+                <div class="pizza-card">
+                    <h4>Gelado Nannarella <span class="price">5,50€</span></h4>
+                    <p data-i18n="item_icecream_desc">Seleção artesanal (2 bolas).</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="menu-ctas">
+            <a href="#reservations" class="btn btn-primary" data-i18n="btn_reserve_menu">Reservar Mesa</a>
+            <a href="https://www.ubereats.com/pt-en/store/nuvola-pizzeria/IXOZRruQQOmigepCljQ90Q?diningMode=DELIVERY&ps=1&sc=SEARCH_SUGGESTION" target="_blank" class="btn btn-outline-gold" data-i18n="btn_uber">Encomendar UberEats</a>
+        </div>
+    </section>
+
+    <section id="story">
+        <div class="story-header">
+            <h2 data-i18n="story_title">A Família Nuvola</h2>
+        </div>
+        
+        <div class="story-intro">
+            <p data-i18n="story_p1">Um Francês, um Brasileiro e um Açoriano conheceram-se no ginásio. Entre treinos, nasceu a ideia da Nuvola — um projeto contemporâneo em Campo de Ourique que une paixão e técnica.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="IMG_7201 2.jpg" alt="Morgado" class="team-img">
+                <div class="team-info">
+                    <span class="team-name">Morgado</span>
+                    <span class="team-role">Owner</span>
+                    <span class="team-origin">São Miguel, Açores</span>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="IMG_7202 2.jpg" alt="Thierry" class="team-img">
+                <div class="team-info">
+                    <span class="team-name">Thierry</span>
+                    <span class="team-role">Founder / CEO</span>
+                    <span class="team-origin">França</span>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="IMG_7204 2.jpg" alt="António" class="team-img">
+                <div class="team-info">
+                    <span class="team-name">António</span>
+                    <span class="team-role">Owner</span>
+                    <span class="team-origin">Rio de Janeiro, Brasil</span>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="IMG_7203 2.jpg" alt="Surendra" class="team-img">
+                <div class="team-info">
+                    <span class="team-name">Surendra</span>
+                    <span class="team-role">Head Pizzaiollo</span>
+                    <span class="team-origin">Nepal</span>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="IMG_7205 2.jpg" alt="Rupak" class="team-img">
+                <div class="team-info">
+                    <span class="team-name">Rupak</span>
+                    <span class="team-role">Pizzaiollo Assistant</span>
+                    <span class="team-origin">Nepal</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="https://www.instagram.com/nuvola.lisboa" target="_blank" class="btn btn-outline-gold" data-i18n="btn_insta">Siga a nossa jornada @nuvola.lisboa</a>
+        </div>
+    </section>
+
+    <section id="reservations">
+        <div class="res-header">
+            <h2 data-i18n="res_title">Reserve a sua Mesa</h2>
+        </div>
+        
+        <div class="res-container-centered">
+            <div class="res-main-actions">
+                <div class="res-box">
+                    <h4 data-i18n="res_call_title">Reserva Direta</h4>
+                    <a href="tel:+351213961909" class="phone-number">+351 21 396 1909</a>
+                    <p style="font-size: 0.85rem; color: #666;" data-i18n="res_call_sub">Ligue-nos para reservas imediatas ou grupos.</p>
+                </div>
+
+                <div class="res-box">
+                    <h4 data-i18n="res_online_title">Reserva Online</h4>
+                    <a href="https://www.thefork.pt/restaurante/nuvola-r835911" target="_blank" class="btn btn-dark" style="margin-top:10px;">Reserve via TheFork</a>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 15px;" data-i18n="res_fork_sub">Confirmação instantânea através da plataforma.</p>
+                </div>
+            </div>
+
+            <div class="res-info-side">
+                <div class="info-card">
+                    <h4 data-i18n="info_hours">Horário</h4>
+                    <p><strong>Seg-Qua:</strong> 18:00–22:30</p>
+                    <p><strong>Qui-Sáb:</strong> 12:00–15:00 & 18:00–22:30</p>
+                    <p data-i18n="info_closed"><strong>Dom:</strong> Fechado</p>
+                </div>
+
+                <div class="info-card">
+                    <h4 data-i18n="info_find">Onde Estamos</h4>
+                    <p>📍 R. Azedo Gneco 74B, 1350-039 Lisboa</p>
+                    <p style="font-size: 0.85rem; color: #666; margin-top: 5px;" data-i18n="info_location_sub">No coração de Campo de Ourique.</p>
+                </div>
+
+                <div class="delivery-strip">
+                    <span data-i18n="delivery_text_short">Não pode vir?</span> <a href="https://www.ubereats.com/pt-en/store/nuvola-pizzeria/IXOZRruQQOmigepCljQ90Q" target="_blank">UberEats →</a>
+                </div>
+                
+                <p style="font-size:0.75rem; margin-top:20px; color:#999; font-style: italic;" data-i18n="info_seats">Apenas 26 lugares — recomendamos reservar, especialmente ao fim de semana.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="texture-overlay"></div>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <a href="#" class="footer-logo">NUVOLA</a>
+                <p data-i18n="footer_desc">Pizza Napolitana Contemporânea & Vinho · Campo de Ourique · Lisboa</p>
+                <p style="margin-top:20px; opacity:0.8;" data-i18n="footer_open">Aberto em Janeiro 2025. Feito com 48 horas de paciência.</p>
+            </div>
+
+            <div class="footer-col">
+                <h5 data-i18n="info_find">Onde Estamos</h5>
+                <ul>
+                    <li>R. Azedo Gneco 74B</li>
+                    <li data-i18n="footer_monwed">Seg-Qua: Apenas Jantar</li>
+                    <li data-i18n="footer_thusat">Qui-Sáb: Almoço e Jantar</li>
+                    <li data-i18n="info_closed">Dom: Fechado</li>
+                    <li>+351 21 396 1909</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h5>Links</h5>
+                <ul>
+                    <li><a href="https://www.instagram.com/nuvola.lisboa" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.thefork.pt/restaurante/nuvola-r835911" target="_blank">TheFork Booking</a></li>
+                    <li><a href="https://www.ubereats.com/pt-en/store/nuvola-pizzeria/IXOZRruQQOmigepCljQ90Q" target="_blank">UberEats Delivery</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align:center; margin-bottom: 30px; font-size: 0.9rem; opacity: 0.9;">
+            <span data-i18n="footer_stats">⭐ 4.9 Google  ·  🏆 9.7 TheFork  ·  Vinhos Orgânicos  ·  26 lugares</span>
+        </div>
+
+        <div class="footer-bottom" data-i18n="footer_copy">
+            © 2025 Nuvola. R. Azedo Gneco 74B, Lisboa. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            pt: {
+                nav_menu: "Menu", nav_story: "A Nossa História", nav_visit: "Visite-nos", nav_reserve: "Reservar",
+                hero_title: "Pizza que cresce<br>como uma nuvem.",
+                hero_sub: "Massa fermentada por 48 horas. Vinhos portugueses biológicos. O segredo mais bem guardado de Campo de Ourique — 4.9 ⭐ no Google.",
+                badge_pizza: "🍕 Napolitana Contemporânea", badge_wine: "🍷 Vinhos Orgânicos",
+                btn_reserve: "Reservar Mesa", btn_menu: "Ver o Menu",
+                dough_title: "A origem do nosso nome",
+                dough_l1: "Nuvola significa 'nuvem' em Italiano", dough_l2: "O nome vem da marca de farinha italiana usada na massa",
+                dough_l3: "Fermentação lenta de 48 horas — a massa descansa e torna-se mais leve",
+                dough_l4: "Sementes ricas em Ómega-3 adicionadas à mistura",
+                dough_l5: "Resultado: uma crosta crocante por fora e arejada por dentro",
+                dough_l6: "O Chef Surendra lidera a cozinha",
+                dough_quote: '"Uma mistura de farinha e sementes numa longa fermentação de 48 horas — para uma crosta que é a melhor massa de pizza que já comi."',
+                reviews_title: "O que Lisboa diz de nós",
+                review_3: '"Comer na Nuvola é como um abraço quente."',
+                menu_title: "O Nosso Menu", menu_sub: "Raízes italianas. Alma criativa. Massa de 48h, sempre.",
+                tab_starters: "Entradas", tab_pizzas: "Pizzas & Lasanha", tab_desserts: "Sobremesas",
+                item_focaccia: "Com azeitonas e tomate seco, dip de tomate San Marzano.",
+                item_garlic_title: "Pão de Alho", item_garlic_desc: "Massa de pizza, manteiga de alho, mozzarella, orégãos, grana padano.",
+                item_burrata: "Burrata, tomate-cereja assado, pesto, pinhões tostados. Servido com pão caseiro.",
+                item_charcuterie: "Tábua de Enchidos", item_charcuterie_desc: "Seleção de enchidos italianos premium.",
+                badge_essential: "Essencial", badge_spicy: "Picante",
+                item_margherita: "Tomate San Marzano, Fior di Latte, azeite virgem extra, manjericão.",
+                item_marinara: "Tomate San Marzano, alho confitado, azeite virgem extra, orégãos, manjericão.",
+                item_diavola: "Tomate San Marzano, Fior di Latte, salame picante, cebola caramelizada, tomilho.",
+                item_nduja: "Tomate San Marzano, Fior di Latte, nduja, stracciatella, tomate seco.",
+                item_anchovies: "Anchovas", item_anchovies_desc: "Tomate San Marzano, Fior di Latte, anchovas, alcaparras, azeitonas, raspas de limão.",
+                item_capricciosa: "Tomate San Marzano, Fior di Latte, fiambre, cogumelos confitados, alcachofras, azeitonas.",
+                item_mortadella: "Fior di Latte, mortadella, stracciatella, pesto de pistáchio, pistáchios torrados.",
+                item_parma: "Tomate San Marzano, Fior di Latte, presunto de Parma, burrata, rucula.",
+                item_truffles: "Trufas", item_truffles_desc: "Fior di Latte, trufa negra, cogumelos confitados, nata, raspas de limão.",
+                item_tartiflette: "Fior di Latte, bacon, batata assada, cebola caramelizada, queijo reblochon.",
+                item_pear: "Pêra & Gorgonzola", item_pear_desc: "Fior di Latte, pêra rocha, queijo gorgonzola, mel, nozes caramelizadas.",
+                item_veggie: "Vegetariana", item_veggie_desc: "Tomate San Marzano, Fior di Latte, beringela, curgete, pimentos assados.",
+                badge_main: "Prato", item_lasagna: "Lasanha de Carne", item_lasagna_desc: "Ragù de vaca, tomate San Marzano, molho bechamel, grana padano.",
+                item_tiramisu: "O clássico favorito da casa, cremoso e equilibrado.",
+                item_mousse: "Mousse Chocolate", item_mousse_desc: "70% cacau com flor de sal e azeite virgem extra.",
+                item_icecream: "Gelado Nannarella", item_icecream_desc: "Seleção artesanal (2 bolas).",
+                btn_reserve_menu: "Reservar Mesa", btn_uber: "Encomendar UberEats",
+                story_title: "A Família Nuvola",
+                story_p1: "Um Francês, um Brasileiro e um Açoriano conheceram-se no ginásio. Entre treinos, nasceu a ideia da Nuvola — um projeto contemporâneo em Campo de Ourique que une paixão e técnica.",
+                btn_insta: "Siga a nossa jornada @nuvola.lisboa",
+                res_title: "Reserve a sua Mesa", 
+                res_call_title: "Reserva Direta", res_call_sub: "Ligue-nos para reservas imediatas ou grupos.",
+                res_online_title: "Reserva Online", res_fork_sub: "Confirmação instantânea através da plataforma.",
+                info_hours: "Horário", info_closed: "<strong>Dom: Fechado</strong>", info_find: "Onde Estamos",
+                info_location_sub: "No coração de Campo de Ourique.",
+                info_seats: "Apenas 26 lugares — recomendamos reservar, especialmente ao fim de semana.",
+                delivery_text_short: "Não pode vir?",
+                footer_desc: "Pizza Napolitana Contemporânea & Vinho · Campo de Ourique · Lisboa",
+                footer_open: "Aberto em Janeiro 2025. Feito com 48 horas de paciência.",
+                footer_monwed: "Seg-Qua: Apenas Jantar", footer_thusat: "Qui-Sáb: Almoço e Jantar",
+                footer_stats: "⭐ 4.9 Google  ·  🏆 9.7 TheFork  ·  Vinhos Orgânicos  ·  26 lugares",
+                footer_copy: "© 2025 Nuvola. R. Azedo Gneco 74B, Lisboa. Todos os direitos reservados."
+            },
+            en: {
+                nav_menu: "Menu", nav_story: "Our Story", nav_visit: "Visit Us", nav_reserve: "Reserve",
+                hero_title: "Pizza that rises<br>like a cloud.",
+                hero_sub: "48-hour fermented dough. Organic Portuguese wines. Campo de Ourique's best-kept secret — rated 4.9 ⭐ on Google.",
+                badge_pizza: "🍕 Contemporary Neapolitan", badge_wine: "🍷 Organic Wines",
+                btn_reserve: "Reserve a Table", btn_menu: "View Menu",
+                dough_title: "The origin of our name",
+                dough_l1: "Nuvola means 'cloud' in Italian", dough_l2: "Named after the Italian flour used in our dough",
+                dough_l3: "48-hour slow fermentation — the dough rests and becomes lighter",
+                dough_l4: "Omega-3 rich seeds added to the mix",
+                dough_l5: "Result: a crust that is crispy outside and airy inside",
+                dough_l6: "Chef Surendra leads the kitchen",
+                dough_quote: '"A mixture of flour and seeds in a long 48-hour fermentation — for the best pizza dough I’ve ever had."',
+                reviews_title: "What Lisbon is saying",
+                review_3: '"Eating at Nuvola is like a warm hug."',
+                menu_title: "Our Menu", menu_sub: "Italian roots. Creative soul. Always 48h dough.",
+                tab_starters: "Starters", tab_pizzas: "Pizzas & Lasagna", tab_desserts: "Desserts",
+                item_focaccia: "With olives and sun-dried tomatoes, San Marzano tomato dip.",
+                item_garlic_title: "Garlic Bread", item_garlic_desc: "Pizza dough, garlic butter, mozzarella, oregano, grana padano.",
+                item_burrata: "Burrata, roasted cherry tomatoes, pesto, toasted pine nuts. Served with homemade bread.",
+                item_charcuterie: "Charcuterie Board", item_charcuterie_desc: "Selection of premium Italian cold cuts.",
+                badge_essential: "Essential", badge_spicy: "Spicy",
+                item_margherita: "San Marzano tomato, Fior di Latte, extra virgin olive oil, basil.",
+                item_marinara: "San Marzano tomato, garlic confit, extra virgin olive oil, oregano, basil.",
+                item_diavola: "San Marzano tomato, Fior di Latte, spicy salami, caramelized onion, thyme.",
+                item_nduja: "San Marzano tomato, Fior di Latte, nduja, stracciatella, sun-tomato.",
+                item_anchovies: "Anchovies", item_anchovies_desc: "San Marzano tomato, Fior di Latte, anchovies, capers, olives, lemon zest.",
+                item_capricciosa: "San Marzano tomato, Fior di Latte, ham, mushroom confit, artichokes, olives.",
+                item_mortadella: "Fior di Latte, mortadella, stracciatella, pistachio pesto, toasted pistachios.",
+                item_parma: "San Marzano tomato, Fior di Latte, Parma ham, burrata, rucula.",
+                item_truffles: "Truffles", item_truffles_desc: "Fior di Latte, black truffle, mushroom confit, cream, lemon zest.",
+                item_tartiflette: "Fior di Latte, bacon, roasted potato, caramelized onion, reblochon cheese.",
+                item_pear: "Pear & Gorgonzola", item_pear_desc: "Fior di Latte, Rocha pear, gorgonzola cheese, honey, caramelized walnuts.",
+                item_veggie: "Vegetarian", item_veggie_desc: "San Marzano tomato, Fior di Latte, eggplant, zucchini, roasted peppers.",
+                badge_main: "Main", item_lasagna: "Meat Lasagna", item_lasagna_desc: "Beef ragù, San Marzano tomato, bechamel sauce, grana padano.",
+                item_tiramisu: "The house favorite classic, creamy and balanced.",
+                item_mousse: "Chocolate Mousse", item_mousse_desc: "70% cocoa with sea salt and extra virgin olive oil.",
+                item_icecream: "Nannarella Ice Cream", item_icecream_desc: "Artisanal selection (2 scoops).",
+                btn_reserve_menu: "Reserve Table", btn_uber: "Order on UberEats",
+                story_title: "The Nuvola Family",
+                story_p1: "A Frenchman, a Brazilian and an Azorean met at the gym. Between workouts, the idea for Nuvola was born — a contemporary project in Campo de Ourique blending passion and technique.",
+                btn_insta: "Follow our journey @nuvola.lisboa",
+                res_title: "Reserve Your Table", 
+                res_call_title: "Direct Booking", res_call_sub: "Call us for immediate bookings or groups.",
+                res_online_title: "Online Booking", res_fork_sub: "Instant confirmation via our platform.",
+                info_hours: "Hours", info_closed: "<strong>Sun: Closed</strong>", info_find: "Find Us",
+                info_location_sub: "In the heart of Campo de Ourique.",
+                info_seats: "Only 26 seats — we recommend booking, especially on weekends.",
+                delivery_text_short: "Can't make it?",
+                footer_desc: "Contemporary Neapolitan Pizza & Wine · Campo de Ourique · Lisbon",
+                footer_open: "Opened January 2025. Made with 48 hours of patience.",
+                footer_monwed: "Mon-Wed: Dinner only", footer_thusat: "Thu-Sat: Lunch & Dinner",
+                footer_stats: "⭐ 4.9 Google  ·  🏆 9.7 TheFork  ·  Organic Wines  ·  26 seats",
+                footer_copy: "© 2025 Nuvola. R. Azedo Gneco 74B, Lisbon. All rights reserved."
+            }
+        };
+
+        function switchLanguage(lang) {
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.innerText.toLowerCase() === lang) btn.classList.add('active');
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+ 
+            document.documentElement.lang = lang;
+        }
+
+        function openTab(tabName) {
+            const contents = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            contents.forEach(c => c.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+           
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+        });
+    </script>
+</body>
+</html>
